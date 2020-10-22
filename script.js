@@ -78,12 +78,17 @@ deleteSubmissionByName(submissions, "Joe");
 
 //Number 5 -------------------------------
 
+// const editSubmission = (array, index, score) => {
+//     let student = array.find((student) => {
+//         return student === array[index];
+//     });
+//     student.score = score;
+//     student.passed = score >= 60;
+// };
+
 const editSubmission = (array, index, score) => {
-    let student = array.find((student) => {
-        return student === array[index];
-    });
-    student.score = score;
-    student.passed = score >= 60;
+    array[index].score = score;
+    array[index].passed = score >= 60;
 };
 
 // console.log(editSubmission(submissions, 0, 80))
@@ -132,28 +137,42 @@ const findLowestScore = (array) => {
 
 //Number 8 -------------------------------
 
-const findAverageScore = (array) => {
-    let total = 0;
-    for (let submission of array) {
-        total += submission.score;
-    };
-    return total/submissions.length;
-};
-
-console.log(findAverageScore(submissions));
+// const findAverageScore = (array) => {
+//     let total = 0;
+//     for (let submission of array) {
+//         total += submission.score;
+//     };
+//     return total/submissions.length;
+// };
 
 // console.log(findAverageScore(submissions));
 
+const findAverageScore = (array) => {
+    let total = array.reduce((accumulator, currentValue)=>{
+        return accumulator + currentValue.score;
+    },0);
+    return total / array.length; 
+};
+
+//the accumulator will be the first object in the array if not specified
+//if you need to specify the initial value, include it after the } of the return statement
+//this will make the value  
 
 
 //Number 9 -------------------------------
 
 const filterPassing = (array) => {
-    let newArray = array.filter((submissions)=> {
-        return submissions.passed === true;
-    });
-    return newArray;
-};
+    return array.filter((submission) => {
+        return item.passed === true;
+    })
+}
+
+// const filterPassing = (array) => {
+//     let newArray = array.filter((submissions)=> {
+//         return submissions.passed === true;
+//     });
+//     return newArray;
+// };
 
 // console.log(filterPassing(submissions));
 
@@ -168,3 +187,31 @@ const filter90AndAbove = (array) => {
     return above90;
 };
 console.log(filter90AndAbove(submissions));
+
+
+
+//Challenges
+
+const createRange = (start, end) => {
+    let newArray = [];
+    for (let i = start; i <= end; i++) {
+        newArray.push(i);
+     }
+     return newArray;
+};
+
+console.log(createRange(2,9));
+
+const countElements = (array) => {
+    let newObject = {};
+    array.forEach((item) => {
+        if (newObject[item] === undefined) {
+            newObject[item] = 1;
+        } else {
+            newObject[item]++;
+        }
+    });
+    return newObject; 
+};
+
+console.log(countElements(["a","b", "c", "a", "b", "c"]));
